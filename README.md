@@ -17,6 +17,7 @@ CSS
 
 **TODO** :   
 - *Clean code* 
+  - ***DIVIDE THE STRUCT 'TOMATO' IN TWO => STRUCT CURRENT_TIMER AND STRUCT TYPE_TIMER_VALUES(?)***
 - *Add next timer's type*
 - *When change timer duration on modal, close modal when save*    
 - *Add audio signal when timer it's over*
