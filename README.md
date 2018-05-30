@@ -1,5 +1,5 @@
 # timerjs
-Timer write in JavaScript
+Timer write in JavaScript inspired by the ["Pomodoro Technique"](https://en.wikipedia.org/wiki/Pomodoro_Technique)  
 
 **HTML** :   
 Bootstrap 4.0.0-alpha  
