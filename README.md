@@ -1,5 +1,5 @@
 # timerjs
-Timer scritto in JavaScript, HTML
+Timer scritto in JavaScript
 
 Parte HTML :  
 Scritta con libreria Bootstrap 4.0.0-alpha  
