@@ -19,3 +19,5 @@ CSS
 - *Clean code* 
 - *Add next timer's type*
 - *When change timer duration on modal, close modal when save*    
+- *Add audio signal when timer it's over*
+- *When timer over change redirect to timer page -> alert that time's over*
