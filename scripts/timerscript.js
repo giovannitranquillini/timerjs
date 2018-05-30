@@ -1,27 +1,31 @@
 //TIMER 
-//variabili
+//variable
 var interval = null;	//bo
-var initMin = "";   //bo
-var initSec = "";	//bo
-//var audio = new Audio('file.mp3');	//traccia audio sveglia
+var initial_minute = "";   //bo
+var initial_second = "";	//bo
+//var audio = new Audio('file.mp3');	//IDEA DI TRACCIA AUDIO ALLA FINE DELL'ALLERT -> più avanti
 
-//Valore dei timer, min,sec, ecc...
+//Struct timer -> contains all the info about the actual timer
 var tomato = {
-	 sec : 0,
-	 min : 25,
-	 tToma : 25,
-	 tBrk : 5,
-	 tLngBrk : 15,
-	 type : "t"
+	 second : 0,
+	 minute : 25,
+	 timer_working : 25,
+	 timer_short_break : 5,
+	 timer_long_break : 15,
+	 timer_type : "working"
 };
 
-//Fa partire un timer
+//Starts timer
 function startTimer() {
+	//set interval
 	interval = setInterval(Timer , 1000);
+	//disable the button start -> 
+	//every time it's pressed, set a new interval 
+	//this ""fixed"" the problem
 	disableStartButton(true);
 }
 
-//Interrompe il timer al valore attuale visualizzato
+//Stops timer and saves the time left in this moment 
 function stopTimer() {
 	clearInterval(interval);
 	disableStartButton(false);
@@ -29,20 +33,20 @@ function stopTimer() {
 
 //Resetta in base al tipo attuale
 function resetActualTimer(){
-	var min;
-	if(tomato.type === "t") min = tomato.tToma;
-	else if (tomato.type === "b") min = tomato.tBrk;
-	else if (tomato.type === "lb") min = tomato.tLngBrk;
-	else min = 25;
-	resetTimer(min);
+	var minute;
+	if(tomato.timer_type === "working") minute = tomato.timer_working;
+	else if (tomato.timer_type === "break") minute = tomato.timer_short_break;
+	else if (tomato.timer_type === "long_break") minute = tomato.timer_long_break;
+	else minute = 25;
+	resetTimer(minute);
 }
 
-//Resetta il tempo al valore iniziale
-function resetTimer(min){
+//It resents the timer at default time
+function resetTimer(minute){
 	clearInterval(interval);
-	tomato.min = min;
-	tomato.sec = 0;
-	document.getElementById("timer").innerHTML = tomato.min + " : 00";
+	tomato.minute = minute;
+	tomato.seconds = 0;
+	document.getElementById("timer").innerHTML = tomato.minute + " : 00";
 	disableStartButton(false);
 }
 
@@ -51,16 +55,16 @@ function resetTimer(min){
 function period( valore ){
 	switch(valore){
 		case "toma" :
-			tomato.type = "t";
-			resetTimer(tomato.tToma); 
+			tomato.timer_type = "working";
+			resetTimer(tomato.timer_working); 
 			break;
 		case "smlbrk" : 
-			tomato.type = "b";
-			resetTimer(tomato.tBrk); 
+			tomato.timer_type = "break";
+			resetTimer(tomato.timer_short_break); 
 			break;
 		case "lngbrk" : 
-			tomato.type = "lb";
-			resetTimer(tomato.tLngBrk);
+			tomato.timer_type = "long_break";
+			resetTimer(tomato.timer_long_break);
 			break;
 		default : console.log("mmh, impossible");
 	}
@@ -69,40 +73,40 @@ function period( valore ){
 //Cambia i valori del tomato, break e longbreak 
 //(viene richiamato solo dalla Modal)
 function changeTime(){
-	tomato.tToma = document.getElementById('tomatoTime').value;
-	tomato.tBrk = document.getElementById('brkTime').value;
-	tomato.tLngBrk = document.getElementById('lngbrkTime').value;
+	tomato.timer_working = document.getElementById('tomatoTime').value;
+	tomato.timer_short_break = document.getElementById('brkTime').value;
+	tomato.timer_long_break = document.getElementById('lngbrkTime').value;
 }
 
 //Restituisce il tempo passato del timer attuale
 function getTime(){
-	if(tomato.type === "t") return tomato.tToma;
-	else if (tomato.type === "b") return tomato.tBrk;
-	else if (tomato.type === "lb") return tomato.tLngBrk;
+	if(tomato.timer_type === "working") return tomato.timer_working;
+	else if (tomato.timer_type === "break") return tomato.timer_short_break;
+	else if (tomato.timer_type === "long_break") return tomato.timer_long_break;
 }
 
 //CONTROLLO SUL TEMPO
 //Quando il tempo è finito avverte con un segnale audio o un alert
 function Timer() {
 
-	if(tomato.sec == 0){
-		tomato.sec = 59;
-		tomato.min -= 1;
-		initSec = "";
+	if(tomato.seconds == 0){
+		tomato.seconds = 59;
+		tomato.minute -= 1;
+		initial_second = "";
 	} else {
-		tomato.sec -= 1;
-		if(tomato.min == 0 && tomato.sec == 0){
+		tomato.seconds -= 1;
+		if(tomato.minute == 0 && tomato.seconds == 0){
 			clearInterval(interval);
 				
 			alert("tempo finito!");
-			initMin = "";
+			initial_minute = "";
 			
-			if(tomato.type == "t"){
-				tomato.min = tomato.tToma;
-			} else if(tomato.type == "b"){
-				tomato.min = tomato.tBrk;
+			if(tomato.timer_type == "working"){
+				tomato.minute = tomato.timer_working;
+			} else if(tomato.timer_type == "break"){
+				tomato.minute = tomato.timer_short_break;
 			} else {
-				tomato.min = tomato.tLngBrk;
+				tomato.minute = tomato.timer_long_break;
 			}
 			
 			//setInterval(audio.play() , 1000);
@@ -111,14 +115,14 @@ function Timer() {
 		}
 	}
 
-	if(tomato.sec == 9){
-		initSec = "0";
+	if(tomato.seconds == 9){
+		initial_second = "0";
 	}
-	if(tomato.min == 9){
-		initMin = "0";
+	if(tomato.minute == 9){
+		initial_minute = "0";
 	}
 	
-	document.getElementById("timer").innerHTML = initMin + tomato.min + " : " + initSec + tomato.sec;
+	document.getElementById("timer").innerHTML = initial_minute + tomato.minute + " : " + initial_second + tomato.seconds;
 }
 
 //Assegna a il bottone start un valore di verità scelto --> 
