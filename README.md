@@ -1,12 +1,18 @@
 # timerjs
-Timer scritto in JavaScript
+Timer write in JavaScript
 
-Parte HTML :  
-Scritta con libreria Bootstrap 4.0.0-alpha  
-Parte di stile in CSS 
+HTML : 
+Bootstrap 4.0.0-alpha 
+CSS 
 
-Pagina HTML : timer.html  
-Foglio di stile : /style/style.css  
-File JavaScript : sripts/timerscript.js
+Page HTML : timer.html  
+Stylesheet : style/style.css   
+File JavaScript : sripts/timerscript.js 
+
+Functions :  
+- Count time  
+- Define timer duration 
+- Stop timer and restart  
+- 
 
 
