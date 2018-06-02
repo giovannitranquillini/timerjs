@@ -19,6 +19,9 @@ CSS
 - *Clean code* 
   - ***DIVIDE THE STRUCT 'TOMATO' IN TWO => STRUCT CURRENT_TIMER AND STRUCT TYPE_TIMER_VALUES(?)***
 - *Add next timer's type*
+  -*creare un array di timer*
+  -*aggiungere l'opzione di mandare in loop il ciclo di timer*
+  -*contare i cicli di timer fatti fin'ora, o il tempo in cui si è lavorato, è qual'è/come sarà il prossimo timer*
 - *When change timer duration on modal, close modal when save*    
 - *Add audio signal when timer it's over*
 - *When timer over change redirect to timer page -> alert that time's over*
