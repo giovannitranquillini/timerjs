@@ -1,5 +1,5 @@
 # timerjs
-Timer write in JavaScript
+Timer write in JavaScript inspired by the ["Pomodoro Technique"](https://en.wikipedia.org/wiki/Pomodoro_Technique)  
 
 **HTML** :   
 Bootstrap 4.0.0-alpha  
@@ -17,6 +17,7 @@ CSS
 
 **TODO** :   
 - *Clean code* 
+  - ***DIVIDE THE STRUCT 'TOMATO' IN TWO => STRUCT CURRENT_TIMER AND STRUCT TYPE_TIMER_VALUES(?)***
 - *Add next timer's type*
 - *When change timer duration on modal, close modal when save*    
 - *Add audio signal when timer it's over*
