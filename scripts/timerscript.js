@@ -1,10 +1,11 @@
 //TIMER 
 //variable
 var interval = null;	//timer interval
-var initial_minute = "";   //bo
-var initial_second = "";	//bo
+var initial_minute = "";   //thing for output
+var initial_second = "";	//thing for output
 //var audio = new Audio('file.mp3');//IDEA DI TRACCIA AUDIO ALLA FINE DELL'ALLERT -> più avanti
 
+//type of timer --> "enum" type
 const type = {
 	WORK : "work",
 	BREAK : "break",
@@ -16,7 +17,7 @@ var timer_duration = {
 	t_break : 5,
 	t_longbreak : 15
 }
-
+//struct timer --> it contains the info of the timer playing right now
 var timer = {
 	 second : 0,
 	 minute : 25,
@@ -135,4 +136,3 @@ function Timer() {
 function disableStartButton(truth){
 	document.getElementById("startBtn").disabled = truth;
 }
-
