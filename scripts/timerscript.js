@@ -1,9 +1,9 @@
 //TIMER 
 //variable
-var interval = null;	//bo
+var interval = null;	//timer interval
 var initial_minute = "";   //bo
 var initial_second = "";	//bo
-//var audio = new Audio('file.mp3');	//IDEA DI TRACCIA AUDIO ALLA FINE DELL'ALLERT -> più avanti
+//var audio = new Audio('file.mp3');//IDEA DI TRACCIA AUDIO ALLA FINE DELL'ALLERT -> più avanti
 
 const type = {
 	WORK : "work",
@@ -40,21 +40,24 @@ function stopTimer() {
 	disableStartButton(false);
 }
 
-//Reset based on the current ""type" of timer
+//Restituisce il tempo passato del timer attuale
+function get_this_timer_duration(){
+	if(timer.type === type.WORK) return timer_duration.t_working;
+	else if (timer.type === type.BREAK) return timer_duration.t_break;
+	else if (timer.type === type.LONGBREAK) return timer_duration.t_longbreak;
+}
+
+//call initialize_timer, based on the current "type" of timer
 function resetActualTimer(){
-	var minute;
-	if(timer.type === type.WORK) minute = timer_duration.t_working;
-	else if (timer.type === type.BREAK) minute = timer_duration.t_break;
-	else if (timer.type === type.LONGBREAK) minute = timer_duration.t_longbreak;
-	else minute = 25;
-	resetTimer(minute);
+	var value = get_this_timer_duration();
+	initialize_timer(value);
 }
 
 //It resents the timer at default time
-function resetTimer(minute){
+function initialize_timer(minute){
 	clearInterval(interval);
 	timer.minute = minute;
-	timer.seconds = 0;
+	timer.second = 0;
 	document.getElementById("timer").innerHTML = timer.minute + " : 00";
 	disableStartButton(false);
 }
@@ -65,15 +68,15 @@ function period( value ){
 	switch(value){
 		case "toma" :
 			timer.type = type.WORK;
-			resetTimer(timer.timer_working); 
+			initialize_timer(timer_duration.t_working); 
 			break;
 		case "smlbrk" : 
 			timer.type = type.BREAK;
-			resetTimer(timer.timer_short_break); 
+			initialize_timer(timer_duration.t_break); 
 			break;
 		case "lngbrk" : 
 			timer.type = type.LONGBREAK;
-			resetTimer(timer.timer_long_break);
+			initialize_timer(timer_duration.t_longbreak);
 			break;
 		default : console.log("There was an Error!");
 	}
@@ -87,23 +90,16 @@ function changeTime(){
 	timer_duration.t_longbreak = document.getElementById('lngbrkTime').value;
 }
 
-//Restituisce il tempo passato del timer attuale
-function getTime(){
-	if(timer.type === type.WORK) return timer_duration.t_working;
-	else if (timer.type === type.BREAK) return timer_duration.t_break;
-	else if (timer.type === type.LONGBREAK) return timer_duration.t_longbreak;
-}
-
 //CONTROLLO SUL TEMPO
 //Quando il tempo è finito avverte con un segnale audio o un alert
 function Timer() {
 
-	if(timer.seconds == 0){
-		timer.seconds = 59;
+	if(timer.second == 0){
+		timer.second = 59;
 		timer.minute -= 1;
 		initial_second = "";
 	} else {
-		timer.seconds -= 1;
+		timer.second -= 1;
 		if(timer.minute == 0 && timer.seconds == 0){
 			clearInterval(interval);
 				
@@ -131,7 +127,7 @@ function Timer() {
 		initial_minute = "0";
 	}
 	
-	document.getElementById("timer").innerHTML = initial_minute + timer.minute + " : " + initial_second + timer.seconds;
+	document.getElementById("timer").innerHTML = initial_minute + timer.minute + " : " + initial_second + timer.second;
 }
 
 //Assegna a il bottone start un valore di verità scelto --> 
