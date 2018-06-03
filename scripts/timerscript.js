@@ -1,3 +1,11 @@
+function create_timer (_minute, _type){
+	return { 
+		second : 0,
+		minute : _minute,
+		type : _type
+	};
+}
+
 //TIMER 
 //variable
 var interval = null;	//timer interval
@@ -18,11 +26,7 @@ var timer_duration = {
 	t_longbreak : 15
 }
 //struct timer --> it contains the info of the timer playing right now
-var timer = {
-	 second : 0,
-	 minute : 25,
-	 type : type.WORK
-};
+var timer = create_timer(timer_duration.t_working, type.WORK);
 
 //Starts timer
 function startTimer() {
