@@ -24,3 +24,4 @@ CSS
 
 - *Add audio signal when timer it's over*
 - *When timer over change redirect to timer page -> alert that time's over*
+- **HTML CHANGES** --> *ogni volta che si aggiunge un timer, deve apparire un small block che indica colore : type e time : timer_duration*
