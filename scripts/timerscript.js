@@ -7,6 +7,8 @@ function create_timer (_minute, _type){
 }
 
 //TIMER 
+//Array of timers
+var timers = [];
 //variable
 var interval = null;	//timer interval
 var initial_minute = "";   //thing for output
@@ -15,9 +17,9 @@ var initial_second = "";	//thing for output
 
 //type of timer --> "enum" type
 const type = {
-	WORK : "work",
-	BREAK : "break",
-	LONGBREAK : "longbreak"
+	WORK : "WORK",
+	BREAK : "BREAK",
+	LONGBREAK : "LONGBREAK"
 }
 //Struct timer -> contains all the info about the actual timer
 var timer_duration = {
@@ -26,11 +28,17 @@ var timer_duration = {
 	t_longbreak : 15
 }
 //struct timer --> it contains the info of the timer playing right now
-var timer = create_timer(timer_duration.t_working, type.WORK);
+//var timer = create_timer(timer_duration.t_working, type.WORK);
+//timers.push(timer);
 
+//ADD A NEW TIMER TO TIMERS
+function add_timer_to_timers(timer_duration, type) {
+	timers.push(create_timer(timer_duration, type));
+}
 //Starts timer
 function startTimer() {
-	//set interval
+	//IF TIMERS IS NULL SET THE FIRST ELEMENT AS A BASE WORK TIMER
+	if(!timers[0]) add_timer_to_timers(timer_duration.t_working, type.WORK); console.log(timers[0]);
 	interval = setInterval(Timer , 1000);
 	//disable the button start -> 
 	//every time it's pressed, set a new interval 
@@ -47,9 +55,9 @@ function stopTimer() {
 
 //Restituisce il tempo passato del timer attuale
 function get_this_timer_duration(){
-	if(timer.type === type.WORK) return timer_duration.t_working;
-	else if (timer.type === type.BREAK) return timer_duration.t_break;
-	else if (timer.type === type.LONGBREAK) return timer_duration.t_longbreak;
+	if(timers[0].type === type.WORK) return timer_duration.t_working;
+	else if (timers[0].type === type.BREAK) return timer_duration.t_break;
+	else if (timers[0].type === type.LONGBREAK) return timer_duration.t_longbreak;
 }
 
 //call initialize_timer, based on the current "type" of timer
@@ -61,9 +69,9 @@ function resetActualTimer(){
 //It resents the timer at default time
 function initialize_timer(minute){
 	clearInterval(interval);
-	timer.minute = minute;
-	timer.second = 0;
-	document.getElementById("timer").innerHTML = timer.minute + " : 00";
+	timers[0].minute = minute;
+	timers[0].second = 0;
+	document.getElementById("timer").innerHTML = timers[0].minute + " : 00";
 	disableStartButton(false);
 }
 
@@ -99,24 +107,24 @@ function changeTime(){
 //Quando il tempo è finito avverte con un segnale audio o un alert
 function Timer() {
 
-	if(timer.second == 0){
-		timer.second = 59;
-		timer.minute -= 1;
+	if(timers[0].second == 0){
+		timers[0].second = 59;
+		timers[0].minute -= 1;
 		initial_second = "";
 	} else {
-		timer.second -= 1;
-		if(timer.minute == 0 && timer.seconds == 0){
+		timers[0].second -= 1;
+		if(timers[0].minute == 0 && timers[0].second == 0){
 			clearInterval(interval);
 				
 			alert("tempo finito!");
 			initial_minute = "";
 			
-			if(timer.type == "working"){
-				timer.minute = timer.timer_working;
+			if(timers[0].type == "working"){
+				timers[0].minute = timer_duration.t_working;
 			} else if(timer.type == "break"){
-				timer.minute = timer.timer_short_break;
+				timers[0].minute = timer_duration.t_break;
 			} else {
-				timer.minute = timer.timer_long_break;
+				timers[0].minute = timer_duration.t_longbreak;
 			}
 			
 			//setInterval(audio.play() , 1000);
@@ -125,14 +133,14 @@ function Timer() {
 		}
 	}
 
-	if(timer.seconds == 9){
+	if(timers[0].seconds == 9){
 		initial_second = "0";
 	}
-	if(timer.minute == 9){
+	if(timers[0].minute == 9){
 		initial_minute = "0";
 	}
 	
-	document.getElementById("timer").innerHTML = initial_minute + timer.minute + " : " + initial_second + timer.second;
+	document.getElementById("timer").innerHTML = initial_minute + timers[0].minute + " : " + initial_second + timers[0].second;
 }
 
 //Assegna a il bottone start un valore di verità scelto --> 
