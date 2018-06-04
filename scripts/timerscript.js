@@ -1,18 +1,20 @@
+// return an "object" timer based on the timer's type
 function create_timer (_minute, _type){
 	return { 
-		second : 0,
-		minute : _minute,
-		type : _type
+		interval : null, 	//timer interval 
+		second : 0,			//timer actual second
+		minute : _minute,	//timer actual minute
+		type : _type		//timer's type
 	};
 }
 
 //TIMER 
 //Array of timers
 var timers = [];
-//variable
-var interval = null;	//timer interval
-var initial_minute = "";   //thing for output
-var initial_second = "";	//thing for output
+
+var initial_minute = "";   	//thing for a correct view output
+var initial_second = "";	//thing for a correct view output
+
 //var audio = new Audio('file.mp3');//IDEA DI TRACCIA AUDIO ALLA FINE DELL'ALLERT -> più avanti
 
 //type of timer --> "enum" type
@@ -27,6 +29,7 @@ var timer_duration = {
 	t_break : 5,
 	t_longbreak : 15
 }
+
 //struct timer --> it contains the info of the timer playing right now
 //var timer = create_timer(timer_duration.t_working, type.WORK);
 //timers.push(timer);
@@ -35,11 +38,12 @@ var timer_duration = {
 function add_timer_to_timers(timer_duration, type) {
 	timers.push(create_timer(timer_duration, type));
 }
+
 //Starts timer
 function startTimer() {
 	//IF TIMERS IS NULL SET THE FIRST ELEMENT AS A BASE WORK TIMER
 	if(!timers[0]) add_timer_to_timers(timer_duration.t_working, type.WORK); console.log(timers[0]);
-	interval = setInterval(Timer , 1000);
+	timers[0].interval = setInterval(Timer , 1000);
 	//disable the button start -> 
 	//every time it's pressed, set a new interval 
 	//this ""fixed"" the problem
@@ -48,12 +52,12 @@ function startTimer() {
 
 //Stops timer and saves the time left in this moment 
 function stopTimer() {
-	clearInterval(interval);
+	clearInterval(timers[0].interval);
 	//able the start button
 	disableStartButton(false);
 }
 
-//Restituisce il tempo passato del timer attuale
+//Get timer_duration_time of the timer's type of the timer, counting in this moment
 function get_this_timer_duration(){
 	if(timers[0].type === type.WORK) return timer_duration.t_working;
 	else if (timers[0].type === type.BREAK) return timer_duration.t_break;
@@ -66,16 +70,16 @@ function resetActualTimer(){
 	initialize_timer(value);
 }
 
-//It resents the timer at default time
+//It resents the timer at time given
 function initialize_timer(minute){
-	clearInterval(interval);
+	clearInterval(timers[0].interval);
 	timers[0].minute = minute;
 	timers[0].second = 0;
 	document.getElementById("timer").innerHTML = timers[0].minute + " : 00";
 	disableStartButton(false);
 }
 
-//Cambia il valore temporale 
+//Call initialize_timer and give a value based on output 'value'
 //Assegnazione di uno dei 3 tipi di "sveglie"
 function period( value ){
 	switch(value){
@@ -95,16 +99,18 @@ function period( value ){
 	}
 }
 
-//Cambia i valori del timer, break e longbreak 
-//(viene richiamato solo dalla Modal)
+//Change timer_duration values based on the input of the user on HTML page  
+//(it's call in the Modal with button 'SAVE CHANGES')
 function changeTime(){
 	timer_duration.t_working = document.getElementById('tomatoTime').value;
 	timer_duration.t_break = document.getElementById('brkTime').value;
 	timer_duration.t_longbreak = document.getElementById('lngbrkTime').value;
 }
 
-//CONTROLLO SUL TEMPO
-//Quando il tempo è finito avverte con un segnale audio o un alert
+//CONTROL ON TIME PASSING
+//Every sec esec this, and decrement our timer. 
+//Specific control on end of minute and end of timer 
+//Alert when timer is over!
 function Timer() {
 
 	if(timers[0].second == 0){
@@ -143,8 +149,7 @@ function Timer() {
 	document.getElementById("timer").innerHTML = initial_minute + timers[0].minute + " : " + initial_second + timers[0].second;
 }
 
-//Assegna a il bottone start un valore di verità scelto --> 
-//serve per impedire di schiacciarlo più volte facendo partire più timer contemporanemente
-function disableStartButton(truth){
-	document.getElementById("startBtn").disabled = truth;
+//change value enable of button start
+function disableStartButton(value){
+	document.getElementById("startBtn").disabled = value;
 }
