@@ -36,7 +36,20 @@ var timer_duration = {
 
 //ADD A NEW TIMER TO TIMERS
 function add_timer_to_timers(timer_duration, type) {
+
 	timers.push(create_timer(timer_duration, type));
+
+	var para = document.createElement("p");
+	var node = document.createTextNode(timer_duration + " , " + type);
+	para.appendChild(node);
+
+	var element = document.getElementById("timers_queue");
+	element.appendChild(para);
+}
+
+//ADD A NEW TIMER 
+function addATimer() {
+	add_timer_to_timers(20, type.WORK);
 }
 
 //Starts timer
