@@ -1,17 +1,24 @@
+//Struct timer -> contains all the info about the actual timer
+var timer_duration = {
+	t_working : 25,
+	t_break : 5,
+	t_longbreak : 15
+}
+
 // return an "object" timer based on the timer's type
-function create_timer (_minute, _type){
+function create_timer (_type){
 	return { 
 		interval : null, 	//timer interval 
 		second : 0,			//timer actual second
-		minute : _minute,	//timer actual minute
-		type : _type		//timer's type
+		minute : get_time_type(_type),	//timer actual minute
+		type : _type,		//timer's type
+		ID : null
 	};
 }
 
 //TIMER 
 //Array of timers
 var timers = [];
-
 var initial_minute = "";   	//thing for a correct view output
 var initial_second = "";	//thing for a correct view output
 
@@ -23,45 +30,57 @@ const type = {
 	BREAK : "BREAK",
 	LONGBREAK : "LONGBREAK"
 }
-//Struct timer -> contains all the info about the actual timer
-var timer_duration = {
-	t_working : 25,
-	t_break : 5,
-	t_longbreak : 15
+
+//CAPIRE PERCHE' CON type.'VALUE' NON FUNZIONA!
+function get_time_type(type){
+	if(type === "WORK") return timer_duration.t_working;
+	else if (type === "BREAK") return timer_duration.t_break;
+	else if (type === "LONGBREAK") return timer_duration.t_longbreak;
 }
 
-//struct timer --> it contains the info of the timer playing right now
-//var timer = create_timer(timer_duration.t_working, type.WORK);
-//timers.push(timer);
-
 //ADD A NEW TIMER TO TIMERS
-function add_timer_to_timers(timer_duration, type, id) {
+function add_timer_to_timers(type) {
 
-	timers.push(create_timer(timer_duration, type));
+	var tmp = create_timer(type);
+	tmp.ID = getID();
+	console.log("oggetto tmp : " + tmp);
+	timers.push(tmp);
 
 	var t_box = document.createElement("button");
-	t_box.setAttribute("id" , id);
-	t_box.setAttribute("onclick", "prova()");
-	var node = document.createTextNode(timer_duration + " , " + type);
+	t_box.setAttribute("id" , tmp.ID);
+	t_box.setAttribute("onclick", "removeItem(this.id)");
+	var node = document.createTextNode(get_time_type(type) + " , " + type + ", " + tmp.ID);
 	t_box.appendChild(node);
 
 	var element = document.getElementById("timers_queue");
 	element.appendChild(t_box);
 }
 
-function prova () {
-	console.log("debug");
+//remove the selected for ID item of the block 
+function removeItem(remove_ID) {
+	console.log("qui");
+	var i;
+	for (i = 0; i < timers.length; i++) {
+		if(timers[i].ID == remove_ID ) { timers.splice(i, 1); return };
+	}
+}
+
+//if there no element in timers return 1, else return last item ID + 1
+function getID () {
+	var lng = timers.length;
+	if(lng === 0) return 1;
+	else return timers[lng - 1].ID + 1;
 }
 
 //ADD A NEW TIMER 
 function addATimer() {
-	add_timer_to_timers(20, type.WORK, 1);
+	add_timer_to_timers(type.WORK);
 }
 
 //Starts timer
 function startTimer() {
 	//IF TIMERS IS NULL SET THE FIRST ELEMENT AS A BASE WORK TIMER
-	if(!timers[0]) add_timer_to_timers(timer_duration.t_working, type.WORK, 1); console.log(timers[0]);
+	if(!timers[0]) add_timer_to_timers(type.WORK); console.log(timers[0]);
 	timers[0].interval = setInterval(Timer , 1000);
 	//disable the button start -> 
 	//every time it's pressed, set a new interval 
