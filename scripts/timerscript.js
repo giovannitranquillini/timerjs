@@ -35,27 +35,33 @@ var timer_duration = {
 //timers.push(timer);
 
 //ADD A NEW TIMER TO TIMERS
-function add_timer_to_timers(timer_duration, type) {
+function add_timer_to_timers(timer_duration, type, id) {
 
 	timers.push(create_timer(timer_duration, type));
 
-	var para = document.createElement("p");
+	var t_box = document.createElement("button");
+	t_box.setAttribute("id" , id);
+	t_box.setAttribute("onclick", "prova()");
 	var node = document.createTextNode(timer_duration + " , " + type);
-	para.appendChild(node);
+	t_box.appendChild(node);
 
 	var element = document.getElementById("timers_queue");
-	element.appendChild(para);
+	element.appendChild(t_box);
+}
+
+function prova () {
+	console.log("debug");
 }
 
 //ADD A NEW TIMER 
 function addATimer() {
-	add_timer_to_timers(20, type.WORK);
+	add_timer_to_timers(20, type.WORK, 1);
 }
 
 //Starts timer
 function startTimer() {
 	//IF TIMERS IS NULL SET THE FIRST ELEMENT AS A BASE WORK TIMER
-	if(!timers[0]) add_timer_to_timers(timer_duration.t_working, type.WORK); console.log(timers[0]);
+	if(!timers[0]) add_timer_to_timers(timer_duration.t_working, type.WORK, 1); console.log(timers[0]);
 	timers[0].interval = setInterval(Timer , 1000);
 	//disable the button start -> 
 	//every time it's pressed, set a new interval 
