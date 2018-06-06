@@ -1,10 +1,3 @@
-//Struct timer -> contains all the info about the actual timer
-var timer_duration = {
-	t_working : 25,
-	t_break : 5,
-	t_longbreak : 15
-}
-
 // return an "object" timer based on the timer's type
 function create_timer (_type){
 	return { 
@@ -16,27 +9,22 @@ function create_timer (_type){
 	};
 }
 
-//TIMER 
-//Array of timers
-var timers = [];
-var initial_minute = "";   	//thing for a correct view output
-var initial_second = "";	//thing for a correct view output
-
-//var audio = new Audio('file.mp3');//IDEA DI TRACCIA AUDIO ALLA FINE DELL'ALLERT -> più avanti
-
-//type of timer --> "enum" type
-const type = {
-	WORK : "WORK",
-	BREAK : "BREAK",
-	LONGBREAK : "LONGBREAK"
-}
-
 //CAPIRE PERCHE' CON type.'VALUE' NON FUNZIONA!
+// GIVE TYPE->TIMER_DURATION VALUE OF THE TYPE ARGUMENT GIVEN
 function get_time_type(type){
 	if(type === "WORK") return timer_duration.t_working;
 	else if (type === "BREAK") return timer_duration.t_break;
 	else if (type === "LONGBREAK") return timer_duration.t_longbreak;
 }
+//Get timer_duration_time of the timer's type of the timer, counting in this moment 
+// BASED ON THE TYPE OF THE ACTUAL TIMER COUNTING
+function get_this_timer_duration(){
+	if(timers[0].type === type.WORK) return timer_duration.t_working;
+	else if (timers[0].type === type.BREAK) return timer_duration.t_break;
+	else if (timers[0].type === type.LONGBREAK) return timer_duration.t_longbreak;
+}
+
+//------------------------- METHODS FOR MANAGE TIMER (NEW/IDS/REMOVE/[UPDATE?]/ECC..) ---------------------------
 
 //ADD A NEW TIMER TO TIMERS
 function add_timer_to_timers(type) {
@@ -55,7 +43,6 @@ function add_timer_to_timers(type) {
 	var element = document.getElementById("timers_queue");
 	element.appendChild(t_box);
 }
-
 //remove the selected for ID item of the block 
 function removeItem(remove_ID) {
 	console.log("qui");
@@ -64,19 +51,17 @@ function removeItem(remove_ID) {
 		if(timers[i].ID == remove_ID ) { timers.splice(i, 1); return };
 	}
 }
-
 //if there no element in timers return 1, else return last item ID + 1
 function getID () {
 	var lng = timers.length;
 	if(lng === 0) return 1;
 	else return timers[lng - 1].ID + 1;
 }
-
 //ADD A NEW TIMER 
 function addATimer() {
 	add_timer_to_timers(type.WORK);
 }
-
+// ------------------------ METHODS FOR COUNTING TIME --------------------------------------
 //Starts timer
 function startTimer() {
 	//IF TIMERS IS NULL SET THE FIRST ELEMENT AS A BASE WORK TIMER
@@ -87,27 +72,17 @@ function startTimer() {
 	//this ""fixed"" the problem
 	disableStartButton(true);
 }
-
 //Stops timer and saves the time left in this moment 
 function stopTimer() {
 	clearInterval(timers[0].interval);
 	//able the start button
 	disableStartButton(false);
 }
-
-//Get timer_duration_time of the timer's type of the timer, counting in this moment
-function get_this_timer_duration(){
-	if(timers[0].type === type.WORK) return timer_duration.t_working;
-	else if (timers[0].type === type.BREAK) return timer_duration.t_break;
-	else if (timers[0].type === type.LONGBREAK) return timer_duration.t_longbreak;
-}
-
 //call initialize_timer, based on the current "type" of timer
 function resetActualTimer(){
 	var value = get_this_timer_duration();
 	initialize_timer(value);
 }
-
 //It resents the timer at time given
 function initialize_timer(minute){
 	clearInterval(timers[0].interval);
@@ -116,7 +91,6 @@ function initialize_timer(minute){
 	document.getElementById("timer").innerHTML = timers[0].minute + " : 00";
 	disableStartButton(false);
 }
-
 //Call initialize_timer and give a value based on output 'value'
 //Assegnazione di uno dei 3 tipi di "sveglie"
 function period( value ){
@@ -136,7 +110,6 @@ function period( value ){
 		default : console.log("There was an Error!");
 	}
 }
-
 //Change timer_duration values based on the input of the user on HTML page  
 //(it's call in the Modal with button 'SAVE CHANGES')
 function changeTime(){
@@ -144,7 +117,6 @@ function changeTime(){
 	timer_duration.t_break = document.getElementById('brkTime').value;
 	timer_duration.t_longbreak = document.getElementById('lngbrkTime').value;
 }
-
 //CONTROL ON TIME PASSING
 //Every sec esec this, and decrement our timer. 
 //Specific control on end of minute and end of timer 
@@ -185,9 +157,4 @@ function Timer() {
 	}
 	
 	document.getElementById("timer").innerHTML = initial_minute + timers[0].minute + " : " + initial_second + timers[0].second;
-}
-
-//change value enable of button start
-function disableStartButton(value){
-	document.getElementById("startBtn").disabled = value;
 }
