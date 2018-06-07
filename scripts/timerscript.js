@@ -5,10 +5,9 @@ function create_timer (_type){
 		second : 0,			//timer actual second
 		minute : get_time_type(_type),	//timer actual minute
 		type : _type,		//timer's type
-		ID : null
+		ID : getID()
 	};
 }
-
 //CAPIRE PERCHE' CON type.'VALUE' NON FUNZIONA!
 // GIVE TYPE->TIMER_DURATION VALUE OF THE TYPE ARGUMENT GIVEN
 function get_time_type(type){
@@ -16,56 +15,35 @@ function get_time_type(type){
 	else if (type === "BREAK") return timer_duration.t_break;
 	else if (type === "LONGBREAK") return timer_duration.t_longbreak;
 }
-//Get timer_duration_time of the timer's type of the timer, counting in this moment 
-// BASED ON THE TYPE OF THE ACTUAL TIMER COUNTING
-function get_this_timer_duration(){
-	if(timers[0].type === type.WORK) return timer_duration.t_working;
-	else if (timers[0].type === type.BREAK) return timer_duration.t_break;
-	else if (timers[0].type === type.LONGBREAK) return timer_duration.t_longbreak;
-}
-
-//------------------------- METHODS FOR MANAGE TIMER (NEW/IDS/REMOVE/[UPDATE?]/ECC..) ---------------------------
-
-//ADD A NEW TIMER TO TIMERS
-function add_timer_to_timers(type) {
-
-	var tmp = create_timer(type);
-	tmp.ID = getID();
-	console.log("oggetto tmp : " + tmp);
-	timers.push(tmp);
-
-	var t_box = document.createElement("button");
-	t_box.setAttribute("id" , tmp.ID);
-	t_box.setAttribute("onclick", "removeItem(this.id)");
-	var node = document.createTextNode(get_time_type(type) + " , " + type + ", " + tmp.ID);
-	t_box.appendChild(node);
-
-	var element = document.getElementById("timers_queue");
-	element.appendChild(t_box);
-}
-//remove the selected for ID item of the block 
-function removeItem(remove_ID) {
-	console.log("qui");
-	var i;
-	for (i = 0; i < timers.length; i++) {
-		if(timers[i].ID == remove_ID ) { timers.splice(i, 1); return };
-	}
-}
 //if there no element in timers return 1, else return last item ID + 1
 function getID () {
 	var lng = timers.length;
 	if(lng === 0) return 1;
 	else return timers[lng - 1].ID + 1;
 }
-//ADD A NEW TIMER 
-function addATimer() {
-	add_timer_to_timers(type.WORK);
+//remove the selected for ID item of the block 
+function removeItem(_ID) {
+	var i;
+	for (i = 0; i < timers.length; i++) {
+		if(timers[i].ID == _ID ) { 
+			stopTimer();
+			timers.splice(i, 1);  
+			removeItemById(_ID);
+			return;
+		};
+
+	}
 }
+
+function removeItemById(id) { 
+	document.getElementById(id).remove();
+}
+
 // ------------------------ METHODS FOR COUNTING TIME --------------------------------------
 //Starts timer
 function startTimer() {
 	//IF TIMERS IS NULL SET THE FIRST ELEMENT AS A BASE WORK TIMER
-	if(!timers[0]) add_timer_to_timers(type.WORK); console.log(timers[0]);
+	if(!timers[0]) newTimer(type.WORK); console.log(timers[0]);
 	timers[0].interval = setInterval(Timer , 1000);
 	//disable the button start -> 
 	//every time it's pressed, set a new interval 
@@ -91,32 +69,65 @@ function initialize_timer(minute){
 	document.getElementById("timer").innerHTML = timers[0].minute + " : 00";
 	disableStartButton(false);
 }
+
+// --------------------------- SETTINGS METHODS -------------------------------------
 //Call initialize_timer and give a value based on output 'value'
-//Assegnazione di uno dei 3 tipi di "sveglie"
-function period( value ){
-	switch(value){
-		case "toma" :
-			timer.type = type.WORK;
-			initialize_timer(timer_duration.t_working); 
-			break;
-		case "smlbrk" : 
-			timer.type = type.BREAK;
-			initialize_timer(timer_duration.t_break); 
-			break;
-		case "lngbrk" : 
-			timer.type = type.LONGBREAK;
-			initialize_timer(timer_duration.t_longbreak);
-			break;
-		default : console.log("There was an Error!");
-	}
+//Assegnazione di uno dei 3 tipi di "sveglie" --> bisogna trovarci un' utilità
+// function period( value ){
+// 	switch(value){
+// 		case "toma" :
+// 			timer.type = type.WORK;
+// 			initialize_timer(timer_duration.t_working); 
+// 			break;
+// 		case "smlbrk" : 
+// 			timer.type = type.BREAK;
+// 			initialize_timer(timer_duration.t_break); 
+// 			break;
+// 		case "lngbrk" : 
+// 			timer.type = type.LONGBREAK;
+// 			initialize_timer(timer_duration.t_longbreak);
+// 			break;
+// 		default : console.log("There was an Error!");
+// 	}
+// }
+//---------------------------------------------------------------------------------------------------------
+
+//Get timer_duration_time of the timer's type of the timer, counting in this moment 
+// BASED ON THE TYPE OF THE ACTUAL TIMER COUNTING
+function get_this_timer_duration(){
+	if(timers[0].type === type.WORK) return timer_duration.t_working;
+	else if (timers[0].type === type.BREAK) return timer_duration.t_break;
+	else if (timers[0].type === type.LONGBREAK) return timer_duration.t_longbreak;
 }
-//Change timer_duration values based on the input of the user on HTML page  
-//(it's call in the Modal with button 'SAVE CHANGES')
-function changeTime(){
-	timer_duration.t_working = document.getElementById('tomatoTime').value;
-	timer_duration.t_break = document.getElementById('brkTime').value;
-	timer_duration.t_longbreak = document.getElementById('lngbrkTime').value;
+
+//------------------------- METHODS FOR MANAGE SINGLE TIMER (NEW/IDS/REMOVE/[UPDATE?]/ECC..) ---------------------------
+
+
+//------------------------------------------------------------------->
+//------------------------------------------------------------------->
+//------------------------------------------------------------------->
+// DA METTERE A POSTO -----------------------------------------------> 
+//------------------------------------------------------------------->
+//------------------------------------------------------------------->
+//------------------------------------------------------------------->
+
+//ADD A NEW TIMER TO TIMERS
+function newTimer(type) {
+
+	var tmp = create_timer(type);
+	//console.log("oggetto tmp : " + tmp);
+	timers.push(tmp);
+
+	var t_box = document.createElement("button");
+	t_box.setAttribute("id" , tmp.ID);
+	t_box.setAttribute("onclick", "removeItem(this.id)");
+	var node = document.createTextNode(get_time_type(type) + " , " + type + ", " + tmp.ID);
+	t_box.appendChild(node);
+
+	var element = document.getElementById("timers_queue");
+	element.appendChild(t_box);
 }
+
 //CONTROL ON TIME PASSING
 //Every sec esec this, and decrement our timer. 
 //Specific control on end of minute and end of timer 
@@ -130,7 +141,7 @@ function Timer() {
 	} else {
 		timers[0].second -= 1;
 		if(timers[0].minute == 0 && timers[0].second == 0){
-			clearInterval(interval);
+			clearInterval(timers[0].interval);
 				
 			alert("tempo finito!");
 			initial_minute = "";
@@ -149,7 +160,7 @@ function Timer() {
 		}
 	}
 
-	if(timers[0].seconds == 9){
+	if(timers[0].second == 9){
 		initial_second = "0";
 	}
 	if(timers[0].minute == 9){

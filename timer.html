@@ -23,9 +23,9 @@
 		</div>
 		</br>
 		<div class="center">
-			<button class="center btn btn-success" value="toma" onclick="period(value)"> TOMATO </button>
-			<button class="center btn btn-warning" value="smlbrk" onclick="period(value)"> BREAK </button>
-			<button class="center btn btn-danger" value="lngbrk" onclick="period(value)"> LONG BREAK </button>
+			<button class="center btn btn-success" value="toma" onclick="newTimer('WORK')"> TOMATO </button>
+			<button class="center btn btn-warning" value="smlbrk" onclick="newTimer('BREAK')"> BREAK </button>
+			<button class="center btn btn-danger" value="lngbrk" onclick="newTimer('LONGBREAK')"> LONG BREAK </button>
 		</div>
 		<br>
 	</div>
@@ -51,15 +51,15 @@
 	      </div>
 	      <div class="modal-body">
 	      	<p>Tomato </p>
-	        <input id = "tomatoTime" class="center" type="number" step="1" value="25">
+	        <input id = "work" class="center" type="number" step="1" value="25">
 	      </div>
 	      <div class="modal-body">
 	      	<p>Break </p>
-	        <input id = "brkTime" class="center" type="number" step="1" value="5">
+	        <input id = "break" class="center" type="number" step="1" value="5">
 	      </div>
 	      <div class="modal-body">
 	      	<p>Long Break </p>
-	        <input id = "lngbrkTime" class="center" type="number" step="1" value="15">
+	        <input id = "longbreak" class="center" type="number" step="1" value="15">
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -70,7 +70,7 @@
 	</div>
 
 	<div class="center">
-		<button onclick="addATimer()">ADD A TIMER </button>
+		<button onclick="newTimer('WORK')">ADD A TIMER </button>
 	</div>
 
 	<div id="timers_queue" class="center"></div>
