@@ -22,7 +22,8 @@ function getID () {
 	else return timers[lng - 1].ID + 1;
 }
 //remove the selected for ID item of the block 
-function removeItem(_ID) {
+function removeItem(element) {
+	_ID = $(element).closest("div").attr("id")
 	var i;
 	for (i = 0; i < timers.length; i++) {
 		if(timers[i].ID == _ID ) { 
@@ -34,7 +35,6 @@ function removeItem(_ID) {
 
 	}
 }
-
 function removeItemById(id) { 
 	document.getElementById(id).remove();
 }
@@ -118,14 +118,16 @@ function newTimer(type) {
 	//console.log("oggetto tmp : " + tmp);
 	timers.push(tmp);
 
+	var div = document.createElement("DIV");
 	var t_box = document.createElement("button");
-	t_box.setAttribute("id" , tmp.ID);
-	t_box.setAttribute("onclick", "removeItem(this.id)");
 	var node = document.createTextNode(get_time_type(type) + " , " + type + ", " + tmp.ID);
-	t_box.appendChild(node);
-
+	
+	div.setAttribute("id" , tmp.ID);
+	t_box.setAttribute("onclick", "removeItem(this)");
+	div.appendChild(node);
+	div.appendChild(t_box);
 	var element = document.getElementById("timers_queue");
-	element.appendChild(t_box);
+	element.appendChild(div);
 }
 
 //CONTROL ON TIME PASSING
