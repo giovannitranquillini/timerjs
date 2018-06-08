@@ -22,7 +22,7 @@ function getID () {
 	else return timers[lng - 1].ID + 1;
 }
 //remove the selected for ID item of the block 
-function removeItem(element) {
+function removeItem(element) { 
 	_ID = $(element).closest("div").attr("id")
 	var i;
 	for (i = 0; i < timers.length; i++) {
@@ -30,6 +30,7 @@ function removeItem(element) {
 			stopTimer();
 			timers.splice(i, 1);  
 			removeItemById(_ID);
+			initialize_timer();
 			return;
 		};
 
@@ -59,13 +60,13 @@ function stopTimer() {
 //call initialize_timer, based on the current "type" of timer
 function resetActualTimer(){
 	var value = get_this_timer_duration();
-	initialize_timer(value);
+	clearInterval(timers[0].interval);
+	timers[0].minute = value;
+	timers[0].second = 0;
+	initialize_timer();
 }
 //It resents the timer at time given
-function initialize_timer(minute){
-	clearInterval(timers[0].interval);
-	timers[0].minute = minute;
-	timers[0].second = 0;
+function initialize_timer(){
 	document.getElementById("timer").innerHTML = timers[0].minute + " : 00";
 	disableStartButton(false);
 }
