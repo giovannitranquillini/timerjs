@@ -119,14 +119,23 @@ function newTimer(type) {
 	//console.log("oggetto tmp : " + tmp);
 	timers.push(tmp);
 
+	//DEFINE DIV ELEMENT
 	var div = document.createElement("DIV");
-	var t_box = document.createElement("button");
-	var node = document.createTextNode(get_time_type(type) + " , " + type + ", " + tmp.ID);
-	
 	div.setAttribute("id" , tmp.ID);
-	t_box.setAttribute("onclick", "removeItem(this)");
+	div.setAttribute("class", "timer_queue");
+	//DEFINE TEXT OF THE DIV
+	var node = document.createTextNode(get_time_type(type) + " , " + type + "  ");
+
+	//DEFINE BUTTON DELETE
+	var delete_button = document.createElement("button");
+	delete_button.setAttribute("onclick", "removeItem(this)");
+	var icon = document.createElement("i");
+	icon.setAttribute("class", "fa fa-trash");
+
+	delete_button.appendChild(icon);
 	div.appendChild(node);
-	div.appendChild(t_box);
+	div.appendChild(delete_button);
+
 	var element = document.getElementById("timers_queue");
 	element.appendChild(div);
 }
