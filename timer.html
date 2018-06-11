@@ -7,58 +7,61 @@
 
 <body>
 
+	<!-- JUMBOTRON WITH CLOCK -->
 	<div class="container">
 		<div class="jumbotron">
-			<p class="center"> Un timer, puoi contare il tempo che passa! </p>
+				<div class="quadrante center">
+						<h1 id="timer" class="center"> INZIA </h1>	
+				</div>
 		</div>
-		</br>
-		<div class="quadrante">
-			<h1 id="timer" class="center"> INZIA </h1>	
-		</div>
-		
-		<div class="center">
-			<button id="startBtn" class="center btn btn-success" onclick="startTimer()"> <i class="fas fa-play"></i> </button>
-			<button class="center btn btn-warning" onclick="stopTimer()"> <i class="fas fa-pause"></i> </button>
-			<button class="center btn btn-danger" onclick="resetActualTimer()"> <i class="fas fa-undo"></i> </button>
-		</div>
-		</br>
-		<div class="center">
-			<button class="center btn btn-success" value="toma" onclick="newTimer('WORK')"> TOMATO </button>
-			<button class="center btn btn-warning" value="smlbrk" onclick="newTimer('BREAK')"> BREAK </button>
-			<button class="center btn btn-danger" value="lngbrk" onclick="newTimer('LONGBREAK')"> LONG BREAK </button>
-		</div>
-		<br>
 	</div>
 
-	<!-- Button trigger modal -->
-	<div class="center">
-		<button type="button" class="btn center" data-toggle="modal" data-target="#myModal">
-		  <i class="far fa-clock" aria-hidden="true"></i>
-		</button>
+	<!-- BODY OF TH PAGE : CONTROLS + TIMERS IN QUEUE -->
+	<!-- CONTROLS -->
+	<div class="controls">
+			<div class="center">
+					<button id="startBtn" class="center btn btn-success" onclick="startTimer()"> <i class="fas fa-play"></i> </button>
+					<button class="center btn btn-warning" onclick="stopTimer()"> <i class="fas fa-pause"></i> </button>
+					<button class="center btn btn-danger" onclick="resetActualTimer()"> <i class="fas fa-undo"></i> </button>
+			</div>
+			<div class="center">
+				<button class="center btn btn-success" value="toma" onclick="newTimer('WORK')"> TOMATO </button>
+				<button class="center btn btn-warning" value="smlbrk" onclick="newTimer('BREAK')"> BREAK </button>
+				<button class="center btn btn-danger" value="lngbrk" onclick="newTimer('LONGBREAK')"> LONG BREAK </button>
+			</div>
+				<!-- Button trigger modal -->
+			<div class="center">
+				<button type="button" class="btn center" data-toggle="modal" data-target="#myModal">
+					<i class="far fa-clock" aria-hidden="true"></i>
+				</button>
+			</div>
+	</div>
+
+	<!-- TIMERS QUEUE -->
+	<div class="container">
+			<div class="center flex-container" id="timers_queue"></div>
 	</div>
 	
-	<br><br>
-	
-	<!-- Modal -->
+	<!-- MODAL : CHANGE TIME TYPE DURATION -->
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h5 class="modal-title center" id="exampleModalLabel">Tempi</h5>
+	        <h5 class="modal-title center" id="exampleModalLabel">Times</h5>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true">&times;</span>
 	        </button>
 	      </div>
 	      <div class="modal-body">
-	      	<p>Tomato </p>
+	      	<p>WORK </p>
 	        <input id = "work" class="center" type="number" step="1" value="25">
 	      </div>
 	      <div class="modal-body">
-	      	<p>Break </p>
+	      	<p>BREAK </p>
 	        <input id = "break" class="center" type="number" step="1" value="5">
 	      </div>
 	      <div class="modal-body">
-	      	<p>Long Break </p>
+	      	<p>LONG BREAK </p>
 	        <input id = "longbreak" class="center" type="number" step="1" value="15">
 	      </div>
 	      <div class="modal-footer">
@@ -69,12 +72,6 @@
 	  </div>
 	</div>
 
-	<div class="center">
-		<button onclick="newTimer('WORK')">ADD A TIMER </button>
-	</div>
-
-	<div id="timers_queue" class="center"></div>
-	
 	<script typr="text/javascript" src="scripts/data.js"></script>
 	<script type="text/javascript" src="scripts/timerscript.js"></script>
 	<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>

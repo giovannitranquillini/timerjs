@@ -3,10 +3,45 @@
 }
 
 .quadrante{
-	border : 1.5px solid black;
-	margin : 0 450px 40px 450px;
+	border : 0.2px solid black;	
+	width : 300px;
+	margin : 0 auto;
 }
 
-.timer_queue {
-	background-color: red;
+.controls {
+	margin-top : 5%;
+}
+
+.controls > div:first-child > button{
+	width : 80px;
+	margin-top : 10px;
+	margin-bottom : 10px;
+}
+
+.controls div:nth-child(2) > button {
+	width : 130px;
+	margin-top : 10px;
+	margin-bottom : 10px;
+}
+
+.controls div:nth-child(3) > button {
+	width :	50px;
+	height: 50px;
+	margin-top : 10px;
+	margin-bottom : 10px;
+	font-size: 25px;
+}
+
+.flex-container {
+	display: flex;
+	flex-wrap: wrap;
+}
+  
+.flex-container > div {
+	background-color: #f1f1f1;
+	width: 200px;
+	height: 40px;
+	margin: 10px;
+	text-align: center;
+	font-size: 15px;
 }
