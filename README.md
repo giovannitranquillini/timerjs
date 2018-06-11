@@ -7,21 +7,23 @@ CSS
 
 > **Page HTML** : timer.html  
 > **Stylesheet** : style/style.css   
-> **File JavaScript** : sripts/timerscript.js 
+> **File JavaScript** : sripts/timerscript.js & scripts/data.js
 
 **Functions** :  
 - Count time    
 - Define timer duration  
-- Stop timer and restart    
+- Stop timer
+- Restart timer
 - Multiple timer's types  
+- Queue of timers
 
 **TODO** :   
-- *Clean code* 
-- *Add next timer's type*
-  - *creare un array di timer*
-  - *aggiungere l'opzione di mandare in loop il ciclo di timer*
-  - *contare i cicli di timer fatti fin'ora, o il tempo in cui si è lavorato, è qual'è/come sarà il prossimo timer*
-
+- *CLEAN CODE* 
+- *Loop the queue timer*
+- *Count the timers completed and output the minute worked so far*
 - *Add audio signal when timer it's over*
-- *When timer over change redirect to timer page -> alert that time's over*
-- **HTML CHANGES** --> *ogni volta che si aggiunge un timer, deve apparire un small block che indica colore : type e time : timer_duration*
+- *Show in the browser tab title the timer in real time*
+
+**BUGS & PROBLEMS**
+- *When a timer is over, check if there is another one in queue, if so execute it*
+- *If a timer is running and the start button is pressed again, it creates another interval that is impossible to stop*
