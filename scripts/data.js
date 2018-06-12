@@ -5,6 +5,9 @@ var timers = [];
 var initial_minute = "";   	//thing for a correct view output
 var initial_second = "";	//thing for a correct view output
 
+var loop = false;
+var continuous_counting = false;
+
 //var audio = new Audio('file.mp3');//IDEA DI TRACCIA AUDIO ALLA FINE DELL'ALLERT -> più avanti
 
 //Struct timer -> contains all the info about the actual timer
