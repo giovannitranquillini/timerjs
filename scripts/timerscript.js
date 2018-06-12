@@ -4,7 +4,7 @@ function createTimer (_type) {
 	return { 
 		interval : null, 	//timer interval 
 		second : 0,			//timer actual second
-		minute : get_time_type(_type),	//timer actual minute
+		minute : getTimeType(_type),	//timer actual minute
 		type : _type,		//timer's type
 		ID : getID()
 	};
@@ -25,7 +25,7 @@ function newTimer(type) {
 	div.setAttribute("id" , tmp.ID);
 	div.setAttribute("class", "timer_queue");
 	//DEFINE TEXT OF THE DIV
-	var node = document.createTextNode(get_time_type(type) + " , " + type + "  ");
+	var node = document.createTextNode(getTimeType(type) + " , " + type + "  ");
 
 	//DEFINE BUTTON DELETE
 	var delete_button = document.createElement("button");
@@ -42,7 +42,7 @@ function newTimer(type) {
 }
 //CAPIRE PERCHE' CON type.'VALUE' NON FUNZIONA!
 // GIVE TYPE->TIMER_DURATION VALUE OF THE TYPE ARGUMENT GIVEN
-function get_time_type(type) {
+function getTimeType(type) {
 	if(type === "WORK") return timer_duration.t_working;
 	else if (type === "BREAK") return timer_duration.t_break;
 	else if (type === "LONGBREAK") return timer_duration.t_longbreak;
@@ -69,7 +69,6 @@ function removeItem(element) {
 			initialize_timer();
 			return;
 		};
-
 	}
 }
 
@@ -110,9 +109,6 @@ function get_this_timer_duration() {
 	else if (timers[0].type === type.BREAK) return timer_duration.t_break;
 	else if (timers[0].type === type.LONGBREAK) return timer_duration.t_longbreak;
 }
-
-
-
 //CONTROL ON TIME PASSING
 //Every sec esec this, and decrement our timer. 
 //Specific control on end of minute and end of timer 
