@@ -135,7 +135,7 @@ function Timer() {
 
 			initial_second = "0";
 			disableStartButton(false);
-			if(timers[0] && continuous_counting) startTimer(); 
+			if(timers[0] && flag.continuous_counting) startTimer(); 
 
 		}
 	}

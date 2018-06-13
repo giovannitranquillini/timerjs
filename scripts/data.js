@@ -5,8 +5,10 @@ var timers = [];
 var initial_minute = "";   	//thing for a correct view output
 var initial_second = "";	//thing for a correct view output
 
-var loop = false;
-var continuous_counting = false;
+var flag = {
+	loop : false,
+	continuous_counting : false
+};
 
 //var audio = new Audio('file.mp3');//IDEA DI TRACCIA AUDIO ALLA FINE DELL'ALLERT -> più avanti
 
@@ -32,6 +34,12 @@ function changeTime(){
 	timer_duration.t_working = document.getElementById('work').value;
 	timer_duration.t_break = document.getElementById('break').value;
 	timer_duration.t_longbreak = document.getElementById('longbreak').value;
+}
+
+//flag set
+function setFlag(_flag) {
+	if(_flag == "loop") flag.loop = !flag.loop;
+	if(_flag == "counting") flag.continuous_counting = !flag.continuous_counting;
 }
 
 //Solution found on stackoverflow.com
