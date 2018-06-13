@@ -2,6 +2,15 @@
 	text-align: center;
 }
 
+.inline {
+	display: inline-block;
+}
+
+.space {
+	margin-left : 10px;
+	margin-right: 10px;
+}
+
 .quadrante{
 	border : 0.2px solid black;	
 	width : 300px;
