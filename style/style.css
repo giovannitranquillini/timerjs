@@ -1,38 +1,31 @@
 .center {
 	text-align: center;
 }
-
 .inline {
 	display: inline-block;
 }
-
 .space {
 	margin-left : 10px;
 	margin-right: 10px;
 }
-
-.quadrante{
+.clock{
 	border : 0.2px solid black;	
 	width : 300px;
 	margin : 0 auto;
 }
-
 .controls {
 	margin-top : 5%;
 }
-
 .controls > div:first-child > button{
 	width : 80px;
 	margin-top : 10px;
 	margin-bottom : 10px;
 }
-
 .controls div:nth-child(2) > button {
 	width : 130px;
 	margin-top : 10px;
 	margin-bottom : 10px;
 }
-
 .controls div:nth-child(3) > button {
 	width :	50px;
 	height: 50px;
@@ -40,12 +33,10 @@
 	margin-bottom : 10px;
 	font-size: 25px;
 }
-
 .flex-container {
 	display: flex;
 	flex-wrap: wrap;
-}
-  
+} 
 .flex-container > div {
 	background-color: #f1f1f1;
 	width: 180px;
