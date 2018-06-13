@@ -16,6 +16,9 @@ CSS
 - Restart timer
 - Multiple timer's types  
 - Queue of timers
+- <s>Loop timers</s>
+- <s>Countinuos counting</s>
+- <s>Give the amount of WORK time and BREAK time</s>
 
 **TODO** :   
 - *CLEAN CODE* 
