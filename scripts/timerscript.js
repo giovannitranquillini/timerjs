@@ -19,6 +19,7 @@ function destroyTimer(index) {
 //ADD A NEW TIMER TO TIMERS
 function newTimer(type) {
 
+	if(timers.length < 15 ) {
 	var tmp = createTimer(type);
 	//console.log("oggetto tmp : " + tmp);
 	timers.push(tmp);
@@ -42,6 +43,10 @@ function newTimer(type) {
 
 	var element = document.getElementById("timers_queue");
 	element.appendChild(div);
+	} else {
+		alert("stop plis");
+	}
+
 }
 //CAPIRE PERCHE' CON type.'VALUE' NON FUNZIONA!
 // GIVE TYPE->TIMER_DURATION VALUE OF THE TYPE ARGUMENT GIVEN
@@ -113,6 +118,13 @@ function get_this_timer_duration() {
 	else if (timers[0].property.type === type.BREAK) return timer_duration.t_break;
 	else if (timers[0].property.type === type.LONGBREAK) return timer_duration.t_longbreak;
 }
+
+function updateWorkedData(this_minute) {
+	var minute_so_far = document.getElementById("worked").innerHTML;
+	document.getElementById("worked").innerHTML = parseInt(minute_so_far) + parseInt(this_minute);
+	var times = document.getElementById("times").innerHTML;
+	document.getElementById("times").innerHTML = parseInt(times) + 1;
+}
 //CONTROL ON TIME PASSING
 //Every sec esec this, and decrement our timer. 
 //Specific control on end of minute and end of timer 
@@ -130,6 +142,7 @@ function Timer() {
 			alert("tempo finito!");
 			initial_minute = "";
 			
+			if(timers[0].property.type == type.WORK) updateWorkedData(timers[0].property.init_minute);
 			//setInterval(audio.play() , 1000);
 			//audio.pause();
 
