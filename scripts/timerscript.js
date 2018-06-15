@@ -69,6 +69,7 @@ function removeItem(element) {
 			stopTimer(); 
 			destroyTimer(i);
 			removeItemById(_ID);
+			initial_minute = "";
 			initialize_timer();
 			return;
 		};
