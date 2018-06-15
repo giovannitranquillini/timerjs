@@ -17,17 +17,16 @@ CSS
 - Multiple timer's types  
 - Queue of timers
 - <s>Loop timers</s>
-- <s>Countinuos counting</s>
+- Countinuos counting
 - <s>Give the amount of WORK time and BREAK time</s>
 
 **TODO** :  **AFTER THIS TODOS, THE PROJECT WILL NO LONGER BE UPDATED**
 - *CLEAN CODE* 
 - *Count the timers completed and output the minute worked so far*
-- *Add audio signal when timer it's over*
 - *Show in the browser tab title the timer in real time*
 - *The timer should have more priority of all others tabs in the browser when the first is over*
 - *Graphic interface improvements*
-- *Manage the flags 'loop' and 'continuous_counting'*
+- *Manage the flags 'loop'*
 
 
 **BUGS & PROBLEMS**

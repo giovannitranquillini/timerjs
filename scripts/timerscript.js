@@ -5,7 +5,10 @@ function createTimer (_type) {
 		interval : null, 	//timer interval 
 		second : 0,			//timer actual second
 		minute : getTimeType(_type),	//timer actual minute
-		type : _type,		//timer's type
+		property : {
+			type : _type, //timer's type
+			init_minute : getTimeType(_type)
+		},		
 		ID : getID()
 	};
 }
@@ -90,8 +93,8 @@ function stopTimer() {
 	disableStartButton(false);
 }
 //call initialize_timer, based on the current "type" of timer
-function resetActualTimer() {
-	var value = get_this_timer_duration();
+function resetTimer() {
+	var value = timers[0].property.init_minute;
 	clearInterval(timers[0].interval);
 	timers[0].minute = value;
 	timers[0].second = 0;
@@ -105,9 +108,9 @@ function initialize_timer() {
 //Get timer_duration_time of the timer's type of the timer, counting in this moment 
 // BASED ON THE TYPE OF THE ACTUAL TIMER COUNTING
 function get_this_timer_duration() {
-	if(timers[0].type === type.WORK) return timer_duration.t_working;
-	else if (timers[0].type === type.BREAK) return timer_duration.t_break;
-	else if (timers[0].type === type.LONGBREAK) return timer_duration.t_longbreak;
+	if(timers[0].property.type === type.WORK) return timer_duration.t_working;
+	else if (timers[0].property.type === type.BREAK) return timer_duration.t_break;
+	else if (timers[0].property.type === type.LONGBREAK) return timer_duration.t_longbreak;
 }
 //CONTROL ON TIME PASSING
 //Every sec esec this, and decrement our timer. 
