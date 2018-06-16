@@ -11,7 +11,7 @@
 	<div class="container">
 		<div class="jumbotron">
 				<div class="clock center">
-						<h1 id="timer" class="center"> 00:00 </h1>	
+						<h1 id="timer" class="center"> 00 : 00 </h1>	
 				</div>
 		</div>
 	</div>
@@ -31,9 +31,9 @@
 					<button class="center btn btn-danger" onclick="resetTimer()"> <i class="fas fa-undo"></i> </button>
 			</div>
 			<div class="center">
-				<button class="center btn btn-success" value="toma" onclick="newTimer('WORK')"> TOMATO </button>
-				<button class="center btn btn-warning" value="smlbrk" onclick="newTimer('BREAK')"> BREAK </button>
-				<button class="center btn btn-danger" value="lngbrk" onclick="newTimer('LONGBREAK')"> LONG BREAK </button>
+				<button class="center btn btn-success" onclick="newTimer('WORK')"> WORK </button>
+				<button class="center btn btn-warning" onclick="newTimer('BREAK')"> BREAK </button>
+				<button class="center btn btn-danger" onclick="newTimer('LONGBREAK')"> LONG BREAK </button>
 			</div>
 				<!-- Button trigger modal -->
 			<div class="center">
@@ -56,7 +56,15 @@
 
 	<!-- TIMERS QUEUE -->
 	<div class="container">
-			<div class="center flex-container" id="timers_queue"></div>
+			<div class="row" >
+				<div class="col-2"></div>
+				<div class="col-8">
+					<div class="row center flex-container" id="timers_queue">
+
+					</div>
+				</div>
+				<div class="col-2"></div>
+			</div>
 	</div>
 	
 	<!-- MODAL : CHANGE TIME TYPE DURATION -->
