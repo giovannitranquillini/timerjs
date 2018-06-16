@@ -13,6 +13,21 @@
 	width : 300px;
 	margin : 0 auto;
 }
+.timer {
+	border-radius: 10px 10px 10px 10px;
+	margin-top : 100%;
+}
+.delete_button {
+	float : right;
+	margin : 10px 10px auto 0;
+	background-color: Transparent;
+    background-repeat:no-repeat;
+	border: none;
+	cursor:pointer;
+    overflow: hidden;
+	outline:none;
+	font-size: 20px;
+}
 .controls {
 	margin-top : 5%;
 }
@@ -35,13 +50,21 @@
 }
 .flex-container {
 	display: flex;
-	flex-wrap: wrap;
 } 
 .flex-container > div {
-	background-color: #f1f1f1;
 	width: 180px;
-	height: 40px;
+	height: 60px;
 	margin: 10px;
 	text-align: center;
-	font-size: 15px;
+	font-size: 35px;
+	font-weight: bold;
+}
+.green {
+	background-color: #28a745;
+}
+.yellow {
+	background-color: #ffc107;
+}
+.red {
+	background-color: #dc3545;
 }
