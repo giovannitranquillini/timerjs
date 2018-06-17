@@ -10,11 +10,9 @@ var flag = {
 	continuous_counting : false
 };
 
-//var audio = new Audio('file.mp3');//IDEA DI TRACCIA AUDIO ALLA FINE DELL'ALLERT -> più avanti
-
 //Struct timer -> contains all the info about the actual timer
 var timer_duration = {
-	t_working : 25,
+	t_working : 35,
 	t_break : 5,
 	t_longbreak : 15
 }
