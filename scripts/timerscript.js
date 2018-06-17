@@ -1,4 +1,3 @@
-
 function createTimer (_type) {
 	return { 
 		interval : null, 	//timer interval 
@@ -16,24 +15,16 @@ function destroyTimer(index) {
 	timers.splice(index, 1); 
 }
 
-function newTimer(type) {
-
-	if(timers.length < 10 ) {
-	var tmp = createTimer(type);
-	//console.log("oggetto tmp : " + tmp);
-	timers.push(tmp);
+function printTimer(element) {
 	
-	var color;
-	if(tmp.property.type == "WORK") color = "green";
-	if(tmp.property.type == "BREAK") color = "yellow";
-	if(tmp.property.type == "LONGBREAK") color = "red";
-
+	var color = getColor(element.property.type);
+	
 	//DEFINE DIV ELEMENT
-	var div = document.createElement("DIV");
-	div.setAttribute("id" , tmp.ID);
+	var div = document.createElement("DIV")
+	div.setAttribute("id" , element.ID);
 	div.setAttribute("class", "timer col-12 col-lg-5 col-md-8 col-sm-12 " + color);
 	//DEFINE TEXT OF THE DIV
-	var node = document.createTextNode(getTimeType(type));
+	var node = document.createTextNode(element.property.init_minute);
 
 	//DEFINE BUTTON DELETE
 	var delete_button = document.createElement("button");
@@ -48,6 +39,23 @@ function newTimer(type) {
 
 	var element = document.getElementById("timers_queue");
 	element.appendChild(div);
+}
+
+function getColor( type ) {
+	if(type == "WORK") return "green";
+	if(type == "BREAK") return "yellow";
+	if(type == "LONGBREAK") return "red";
+}
+
+function newTimer(type) {
+
+	if(timers.length < 10 ) {
+	var tmp = createTimer(type);
+	//console.log("oggetto tmp : " + tmp);
+	timers.push(tmp);
+	
+	printTimer(tmp);
+
 	} else {
 		alert("stop plis");
 	}
@@ -152,8 +160,21 @@ function Timer() {
 			if(timers[0].property.type == type.WORK) updateWorkedData(timers[0].property.init_minute);
 
 			clearInterval(timers[0].interval);
-			removeItemById(timers[0].ID);
-			destroyTimer(0);
+			if(flag.loop) {
+
+				var tmp = timers[0];
+				tmp.minute = tmp.property.init_minute;
+				removeItemById(timers[0].ID);
+				destroyTimer(0);
+
+				timers.push(tmp);
+				printTimer(tmp);
+			} else {
+
+				removeItemById(timers[0].ID);
+				destroyTimer(0);
+
+			}
 
 			initial_second = "0";
 			disableStartButton(false);
