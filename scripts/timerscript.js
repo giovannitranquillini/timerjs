@@ -91,8 +91,9 @@ function removeItem(element) {
 			destroyTimer(i);
 			removeItemById(_ID);
 			initial_minute = "";
+			initial_minute = "";
 
-			if(!timers[0]) {		
+			if(timers[0] == null) {		
 				updateClock("00","00");
 			} else if(flag.continuous_counting ){
 				startTimer();
@@ -107,7 +108,11 @@ function removeItem(element) {
 
 function startTimer() {
 	//IF TIMERS IS NULL SET THE FIRST ELEMENT AS A BASE WORK TIMER
-	if(!timers[0]) newTimer(type.WORK); updateClock(timers[0].minute, "00"); 
+	if(!timers[0]) {
+		newTimer(type.WORK);
+		updateClock(timers[0].minute, "00");
+	}
+
 	timers[0].interval = setInterval(Timer , 1000);
 	//disable the button start -> 
 	//every time it's pressed, set a new interval 
@@ -155,8 +160,7 @@ function Timer() {
 		if(timers[0].minute == 0 && timers[0].second == 0){
 
 			alert("tempo finito!");
-			initial_minute = "";
-			
+					
 			if(timers[0].property.type == type.WORK) updateWorkedData(timers[0].property.init_minute);
 
 			clearInterval(timers[0].interval);
@@ -176,19 +180,25 @@ function Timer() {
 
 			}
 
-			initial_second = "0";
 			disableStartButton(false);
 			if(timers[0] && flag.continuous_counting) startTimer(); 
 
 		}
 	}
 
-	if(timers[0].second == 9){
-		initial_second = "0";
+	if(timers[0]) {
+		if(timers[0].second == 9){
+			initial_second = "0";
+		}
+		if(timers[0].minute == 9){
+			initial_minute = "0";
+		}
+
+		updateClock(timers[0].minute, timers[0].second);
+	} else {
+		updateClock(0, 0);
+		initial_minute = "";
+		initial_second = "";
 	}
-	if(timers[0].minute == 9){
-		initial_minute = "0";
-	}
-	
-	updateClock(timers[0].minute, timers[0].second);
+
 }
