@@ -158,7 +158,7 @@ function Timer() {
 	} else {
 		timers[0].second -= 1;
 		if(timers[0].minute == 0 && timers[0].second == 0){
-
+			initial_minute = "";
 			alert("tempo finito!");
 					
 			if(timers[0].property.type == type.WORK) updateWorkedData(timers[0].property.init_minute);
