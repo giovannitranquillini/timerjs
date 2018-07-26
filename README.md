@@ -3,7 +3,6 @@ Timer write in JavaScript inspired by the ["Pomodoro Technique"](https://en.wiki
 
 **HTML** :   
 Bootstrap 4.0.0-alpha  
-CSS 
 
 > **Page HTML** : timer.html  
 > **Stylesheet** : style/style.css   
@@ -12,17 +11,9 @@ CSS
 **Functions** :  
 - Count time    
 - Define timer duration  
-- Stop timer
-- Restart timer
-- Multiple timer's types  
+- Stop and restart timer
+- Multiple timer's types  (WORK, BREAK, LONGBREAK)
 - Queue of timers
 - Loop timers
-- Countinuos counting
-- Give the amount of WORK time and BREAK time
-
-**TODO** :  **AFTER THIS TODOS, THE PROJECT WILL NO LONGER BE UPDATED**
-- *CLEAN CODE* 
-- *The timer should have more priority of all others tabs in the browser when the first is over*
-
-**BUGS & PROBLEMS**
-- *If a timer is running and the start button is pressed again, it creates another interval that is impossible to stop*
+- Countinuos counting : a timers doesn't stop and alert when it's over 
+- Show the amount of WORKed time and BREAK time
