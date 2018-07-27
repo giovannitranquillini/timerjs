@@ -17,3 +17,7 @@ Bootstrap 4.0.0-alpha
 - Loop timers
 - Countinuos counting : a timers doesn't stop and alert when it's over 
 - Show the amount of WORKed time and BREAK time
+
+
+
+![alt text](https://raw.githubusercontent.com/giovannitranquillini/timerjs/master/img/interface.png)
